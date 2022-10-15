@@ -1,15 +1,13 @@
 package hack.polyus.goldenrush.services;
 
 import hack.polyus.goldenrush.models.transport.*;
-import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.repo.TransportRepo;
+import hack.polyus.goldenrush.services.interfaces.TransportDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TransportService {
