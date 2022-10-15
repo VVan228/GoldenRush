@@ -22,5 +22,9 @@ public class Schedule {
     Long id;
     Date date;
     @OneToMany(fetch = FetchType.LAZY)
-    List<TimeLine> timeLines  = new ArrayList<>();;
+    List<TimeLine> timeLines  = new ArrayList<>();
+
+    public void addTimeLine(TimeLine tL) {
+        this.timeLines.add(tL);
+    }
 }

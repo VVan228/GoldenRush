@@ -1,6 +1,7 @@
 package hack.polyus.goldenrush.services;
 
 import hack.polyus.goldenrush.models.schedule.Schedule;
+import hack.polyus.goldenrush.models.schedule.TimeLine;
 import hack.polyus.goldenrush.models.transport.Request;
 import hack.polyus.goldenrush.models.transport.Transport;
 import hack.polyus.goldenrush.services.interfaces.ScheduleGenerator;
@@ -24,6 +25,10 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
 
     @Override
     public Schedule generate(List<Transport> transportList, List<Request> requests) {
+
+        Schedule readySchedule = new Schedule();
+        TimeLine timeLine;
+
         // сортируем по типу запросы
         typesTransportReq = new HashMap<>();
         for (Request r: requests) {
@@ -51,12 +56,13 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
         }
 
         // id_авто + id_ее заказов
-        Map<Long, List<Long>> ans = new HashMap<>();
+        Map<Long, List<Request>> ans = new HashMap<>();
 
         // тип техники
         for (var entry : nowTransport.entrySet()) {
             //System.out.println(entry.getKey() + "/" + entry.getValue());
             // транспорт с конкретным типом
+            timeLine = new TimeLine();
             for (Transport t: entry.getValue()) {
 
                 // подходящий заказ к авто
@@ -67,11 +73,11 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
 
                 Request find_req = searchRequest(typesTransportReq.get(entry.getKey()), t);
                 // записываем id_requests конкретного авто
-                List<Long> ids_request = new LinkedList<>();
+                List<Request> ids_request = new LinkedList<>();
                 if (ans.containsKey(t.getId())) {
                     ids_request = ans.get(t.getId());
                 }
-                ids_request.add(find_req.getId());
+                ids_request.add(find_req);
                 ans.put(t.getId(), ids_request);
 
                 // ищем запросы по оставшемуся времени
@@ -79,19 +85,20 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
                 typesTransportReq.get(entry.getKey()).remove(find_req);
 
                 while (needReq != null) {
-                    ids_request.add(needReq.getId());
+                    ids_request.add(needReq);
                     ans.put(t.getId(), ids_request);
                     needReq = addReq(needReq.getEnd(), entry.getKey());
                     // удаляем запрос из списка запросов данного типа
                     typesTransportReq.get(entry.getKey()).remove(find_req);
                 }
+
+                timeLine.setTransport(t);
+                timeLine.setShedule(ans.get(t.getId()));
             }
+            readySchedule.addTimeLine(timeLine);
         }
 
-        // типы авто
-
-
-        return null;
+        return readySchedule;
     }
 
     public Request searchRequest(List<Request> typesTransportReq, Transport t) {
