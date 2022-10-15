@@ -34,7 +34,7 @@ public class TransportController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/transport/coords/get/{number}",
+            value = "/api/transport/coords/get/{number}",
             method = RequestMethod.GET,
             produces = "application/json"
     )
@@ -55,7 +55,7 @@ public class TransportController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/transport/param/getParams/{typeId}",
+            value = "/api/transport/param/getParams/{typeId}",
             method = RequestMethod.GET,
             produces = "application/json"
     )
@@ -65,7 +65,7 @@ public class TransportController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/transport/type/getTypes",
+            value = "/api/transport/type/getTypes",
             method = RequestMethod.GET,
             produces = "application/json"
     )

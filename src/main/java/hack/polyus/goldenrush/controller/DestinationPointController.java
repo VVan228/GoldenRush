@@ -21,7 +21,7 @@ public class DestinationPointController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/destinationPoint/getAll}",
+            value = "/api/destinationPoint/getAll",
             method = RequestMethod.GET,
             produces = "application/json"
     )
@@ -31,7 +31,7 @@ public class DestinationPointController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/destinationPoint/add",
+            value = "/api/destinationPoint/add",
             method = RequestMethod.POST,
             consumes = "application/json"
     )
@@ -41,7 +41,7 @@ public class DestinationPointController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/destinationPoint/delete/{id}",
+            value = "/api/destinationPoint/delete/{id}",
             method = RequestMethod.POST,
             consumes = "application/json"
     )

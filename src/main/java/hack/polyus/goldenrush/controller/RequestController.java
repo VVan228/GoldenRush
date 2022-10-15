@@ -20,7 +20,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/save/request",
+            value = "/api/requests/save/request",
             produces = "application/json",
             method = RequestMethod.POST
     )
@@ -32,7 +32,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/get/{id}/",
+            value = "/api/requests/get/{id}/",
             method = RequestMethod.POST
     )
     public Request getRequestById(@PathVariable Long id) {
@@ -41,7 +41,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/update/{id}/",
+            value = "/api/requests/update/{id}/",
             method = RequestMethod.POST
     )
     public void updateRequest(@PathVariable Long id) {
@@ -50,7 +50,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/delete/{id}/",
+            value = "/api/requests/delete/{id}/",
             method = RequestMethod.POST
     )
     public void deleteRequest(@PathVariable Long id) {
@@ -59,7 +59,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/{id}/confirm/start/{time}/",
+            value = "/api/requests/{id}/confirm/start/{time}/",
             method = RequestMethod.POST
     )
     public void confirmStart(@PathVariable Long id, @PathVariable LocalDateTime time) {
@@ -68,7 +68,7 @@ public class RequestController {
 
     @ResponseBody
     @RequestMapping(
-            value = "/requests/{id}/confirm/end/{time}/",
+            value = "/api/requests/{id}/confirm/end/{time}/",
             method = RequestMethod.POST
     )
     public void confirmEnd(@PathVariable Long id, @PathVariable LocalDateTime time) {

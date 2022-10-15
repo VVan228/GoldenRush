@@ -3,7 +3,7 @@ import "./auth";
 
 function getTransportTypes() {
     const transportTypesList = document.getElementById("transportType");
-    const url = "http://192.168.0.100:8080/transport/type/getTypes";
+    const url = "http://192.168.0.100:8080/api/transport/type/getTypes";
     return fetchWithAuth(url).then(function(response) {
         if (response.ok) {
             return response.json().then(function(jsonData) {
@@ -63,7 +63,7 @@ function add_field(fieldType, paramId) {
 
 
 function getCheckedTransportParams(transportId) {
-    let url = "http://192.168.0.100:8080/transport/param/getParams/" + transportId;
+    let url = "http://192.168.0.100:8080/api/transport/param/getParams/" + transportId;
 
     return fetchWithAuth(url).then(function(response) {
         if (response.ok) {
@@ -184,7 +184,6 @@ function updateSelectedDate() {
         DATE = dateBegin;
         TIME_BEGIN = timeBegin;
         TIME_END = timeEnd;
-        DURATION = diffMilleseconds;
 
         $("#choose-date-button").removeClass("bg-primary");
         $("#choose-date-button").addClass("bg-success");
