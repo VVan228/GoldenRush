@@ -1,7 +1,9 @@
 package hack.polyus.goldenrush.security;
 
+import hack.polyus.goldenrush.services.ScheduleServiceImpl;
 import hack.polyus.goldenrush.services.interfaces.ScheduleGenerator;
 import hack.polyus.goldenrush.services.ScheduleGeneratorImpl;
+import hack.polyus.goldenrush.services.interfaces.ScheduleService;
 import hack.polyus.goldenrush.services.interfaces.TransportDataService;
 import hack.polyus.goldenrush.services.TransportDataServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -29,4 +31,6 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public ScheduleGenerator scheduleGenerator(){return new ScheduleGeneratorImpl();
     }
+
+
 }
