@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,10 +20,12 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
     @Value("${base.point.lat}")
     private double base_lat;
 
+    Map<String, List<Request>> typesTransportReq;
+
     @Override
     public Schedule generate(List<Transport> transportList, List<Request> requests) {
         // сортируем по типу запросы
-        Map<String, List<Request>> typesTransportReq = new HashMap<>();
+        typesTransportReq = new HashMap<>();
         for (Request r: requests) {
             String key = r.getTransportData().getTransportType().getName();
             if (typesTransportReq.containsKey(key)) {
@@ -72,18 +75,16 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
                 ans.put(t.getId(), ids_request);
 
                 // ищем запросы по оставшемуся времени
-                LocalDateTime end_work = find_req.getEnd();
-
-                // удаляем запрос из списка запросов данного типа
+                Request needReq = addReq(find_req.getEnd(), entry.getKey());
                 typesTransportReq.get(entry.getKey()).remove(find_req);
 
-                for (Request request: typesTransportReq.get(entry.getKey())) {
-
-                    if (request.getStart().isAfter(end_work /*+ timeDistanceBetween()) */)) {
-
-                    }
+                while (needReq != null) {
+                    ids_request.add(needReq.getId());
+                    ans.put(t.getId(), ids_request);
+                    needReq = addReq(needReq.getEnd(), entry.getKey());
+                    // удаляем запрос из списка запросов данного типа
+                    typesTransportReq.get(entry.getKey()).remove(find_req);
                 }
-
             }
         }
 
@@ -107,15 +108,33 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
         return find_req;
     }
 
-    private void getTime(LocalDateTime start, LocalDateTime end) {
 
-    }
-
-
-    public LocalDateTime timeDistanceBetween(double x1, double y1, double x2, double y2) {
+    public long timeDistanceBetween(double x1, double y1, double x2, double y2) {
 
         // дистанция в метрах
         double distance = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) / 1852;
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond((long) (distance/7.0)), ZoneId.systemDefault());
+        return (long) (distance/7.0);
+    }
+
+    // ищем запросы по оставшемуся времени
+    private Request addReq(LocalDateTime end_work, String key) {
+
+        double minState = 86401;
+        Request needReq = null;
+        for (Request request: typesTransportReq.get(key)) {
+
+            long ds = timeDistanceBetween(0,1,1,0);
+            LocalDateTime start_work = end_work.plusSeconds(ds);
+            if (request.getStart().isAfter(start_work)) {
+                long sec = ChronoUnit.SECONDS.between(request.getStart(), start_work);
+                double curr = ds * sec;
+                if (curr < minState) {
+                    needReq = request;
+                    minState = curr;
+                }
+            }
+        }
+
+        return needReq;
     }
 }
