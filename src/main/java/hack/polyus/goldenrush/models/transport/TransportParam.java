@@ -22,4 +22,5 @@ public class TransportParam {
     @ManyToOne
     TransportType typeId;
     String name;
+    boolean isEnum;
 }

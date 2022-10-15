@@ -22,6 +22,5 @@ public class TimeLine {
     @OneToOne
     Transport transport;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shedule_id")
     ArrayList<Request> shedule;
 }

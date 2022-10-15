@@ -21,6 +21,5 @@ public class TransportData {
     @ManyToOne
     TransportType transportType;
     @OneToMany
-    @JoinColumn(name = "value_id")
     Map<TransportParam, TransportParamValue> values;
 }
