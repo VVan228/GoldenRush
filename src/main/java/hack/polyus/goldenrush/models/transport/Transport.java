@@ -1,5 +1,6 @@
 package hack.polyus.goldenrush.models.transport;
 
+import hack.polyus.goldenrush.models.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,9 @@ public class Transport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @OneToOne
+    User user;
 
     String number;
     String model;
