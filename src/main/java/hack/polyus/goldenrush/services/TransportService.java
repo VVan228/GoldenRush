@@ -50,4 +50,17 @@ public class TransportService {
         return dataService.getTypes();
     }
 
+
+    public void setStatusAcceptOrder(Long transportId) {
+        transportRepo.setTransportStatus(transportId, DriverStatus.ACCEPT_THE_ORDER);
+    }
+
+    public void setStatusInProgress(Long transportId) {
+        transportRepo.setTransportStatus(transportId, DriverStatus.IN_PROGRESS);
+    }
+
+    public void setStatusFree(Long transportId) {
+        transportRepo.setTransportStatus(transportId, DriverStatus.FREE);
+    }
+
 }

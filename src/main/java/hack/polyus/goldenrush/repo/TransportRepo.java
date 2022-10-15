@@ -18,6 +18,11 @@ public interface TransportRepo extends JpaRepository<Transport, Long> {
     @Query("select t.coord from  Transport t where t.number=:number")
     Coordinate getCoords(@Param(value = "number") String number);
 
+
+    @Modifying
+    @Query("update Transport t set t.status=:status where t.id=:id")
+    void setTransportStatus(@Param(value = "id") Long number, @Param(value = "status") DriverStatus status);
+
     //@Query("update Transport t set t.user =:driver where t.number=:number")
     //void setDriver(@Param(value = "driver") User driver, @Param(value = "number") String number);
 

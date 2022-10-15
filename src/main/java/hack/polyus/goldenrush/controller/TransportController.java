@@ -55,6 +55,36 @@ public class TransportController {
     //    transportService.setDriver(driver, number);
     //}
 
+    @ResponseBody
+    @RequestMapping(
+            value = "api/transport/setStatus/accept/{transportId}",
+            method = RequestMethod.POST,
+            consumes = "application/json"
+    )
+    void setStatusAcceptOrder(@PathVariable Long transportId) {
+        transportService.setStatusAcceptOrder(transportId);
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = "api/transport/setStatus/inProgress/{transportId}",
+            method = RequestMethod.POST,
+            consumes = "application/json"
+    )
+    void setStatusInProgress(@PathVariable Long transportId) {
+        transportService.setStatusInProgress(transportId);
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = "api/transport/setStatus/free/{transportId}",
+            method = RequestMethod.POST,
+            consumes = "application/json"
+    )
+    void setStatusFree(@PathVariable Long transportId) {
+        transportService.setStatusFree(transportId);
+    }
+
 
     @ResponseBody
     @RequestMapping(

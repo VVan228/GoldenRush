@@ -23,6 +23,8 @@ public class Transport {
 
     String number;
     String model;
+
+    DriverStatus status;
     @ManyToOne
     TransportData transportData;
     @Embedded
