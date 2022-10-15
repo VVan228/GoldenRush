@@ -23,4 +23,6 @@ public class TransportParam {
     TransportType typeId;
     String name;
     boolean isEnum;
+
+
 }
