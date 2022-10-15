@@ -1,5 +1,7 @@
 package hack.polyus.goldenrush.controller;
 
+import hack.polyus.goldenrush.adapters.ErpAdapter;
+import hack.polyus.goldenrush.adapters.ErpAdapterImpl;
 import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.services.TransportService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +20,13 @@ public class TransportController {
 
     TransportService transportService;
     MessagingService messagingService;
+    ErpAdapter erpAdapter;
 
     @Autowired
-    public TransportController(TransportService transportService, MessagingService messagingService) {
+    public TransportController(TransportService transportService, MessagingService messagingService, ErpAdapter erpAdapter) {
         this.transportService = transportService;
         this.messagingService = messagingService;
+        this.erpAdapter = erpAdapter;
     }
 
     //@ResponseBody
@@ -93,10 +98,7 @@ public class TransportController {
             produces = "application/json"
     )
     List<TransportParamElement> getParams(@PathVariable Long typeId) {
-        Coordinate coordinate = new Coordinate();
-        coordinate.setLat(11);
-        coordinate.setLon(12);
-        messagingService.sendLocationNotification(0L, coordinate);
+        System.out.println(Arrays.toString(erpAdapter.getTransportForShift().toArray()));
         return transportService.getParams(typeId);
     }
 
