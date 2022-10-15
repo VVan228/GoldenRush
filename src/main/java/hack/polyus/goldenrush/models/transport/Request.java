@@ -22,8 +22,9 @@ public class Request {
     Long clientId;
     // dateTime
     // SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
-    Date start;
-    Date end;
+    LocalDateTime start;
+    LocalDateTime end;
+    Date date;
     @ManyToOne
     TransportData transportData;
 }

@@ -1,4 +1,4 @@
-package hack.polyus.goldenrush.models.transport;
+package hack.polyus.goldenrush.models.destination_point;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
