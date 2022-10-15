@@ -1,10 +1,10 @@
 // МАША
+import "./auth";
 
 function getTransportTypes() {
     const transportTypesList = document.getElementById("transportType");
     const url = "http://192.168.0.100:8080/transport/type/getTypes";
-
-    fetch(url, { headers: { "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYUBiYi5ydSIsInJvbGUiOiJTVVBFUlZJU09SIiwib3JnYW5pc2F0aW9uIjoxLCJpYXQiOjE2NjU4Mjg4NzAsImV4cCI6MTY2NjQzMzY3MH0.iJHy2zoAF2vO5TFxB7mOnLmVwToe10jHadPIpQQukX4" } }).then(function(response) {
+    return fetchWithAuth(url).then(function(response) {
         if (response.ok) {
             return response.json().then(function(jsonData) {
 
@@ -20,6 +20,22 @@ function getTransportTypes() {
             console.log('Network request for trasportTypes.json failed with response ' + response.status + ': ' + response.statusText);
         }
     });
+    // fetch(url, { headers: { "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYUBiYi5ydSIsInJvbGUiOiJTVVBFUlZJU09SIiwib3JnYW5pc2F0aW9uIjoxLCJpYXQiOjE2NjU4Mjg4NzAsImV4cCI6MTY2NjQzMzY3MH0.iJHy2zoAF2vO5TFxB7mOnLmVwToe10jHadPIpQQukX4" } }).then(function(response) {
+    //     if (response.ok) {
+    //         return response.json().then(function(jsonData) {
+    //
+    //             //запись полученных значений в select
+    //             jsonData.forEach(function(type) {
+    //                 let newOption = new Option(type["name"]);
+    //                 newOption.setAttribute("id", type["id"]);
+    //                 $("#transportType").append(newOption);
+    //             });
+    //
+    //         });
+    //     } else {
+    //         console.log('Network request for trasportTypes.json failed with response ' + response.status + ': ' + response.statusText);
+    //     }
+    // });
 }
 
 function add_field(fieldType, paramId) {
@@ -49,7 +65,7 @@ function add_field(fieldType, paramId) {
 function getCheckedTransportParams(transportId) {
     let url = "http://192.168.0.100:8080/transport/param/getParams/" + transportId;
 
-    fetch(url, { headers: { "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYUBiYi5ydSIsInJvbGUiOiJTVVBFUlZJU09SIiwib3JnYW5pc2F0aW9uIjoxLCJpYXQiOjE2NjU4Mjg4NzAsImV4cCI6MTY2NjQzMzY3MH0.iJHy2zoAF2vO5TFxB7mOnLmVwToe10jHadPIpQQukX4" } }).then(function(response) {
+    return fetchWithAuth(url).then(function(response) {
         if (response.ok) {
             return response.json().then(function(jsonData) {
                 console.log(jsonData);
@@ -75,8 +91,35 @@ function getCheckedTransportParams(transportId) {
         }
     });
 
+    // fetch(url, { headers: { "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYUBiYi5ydSIsInJvbGUiOiJTVVBFUlZJU09SIiwib3JnYW5pc2F0aW9uIjoxLCJpYXQiOjE2NjU4Mjg4NzAsImV4cCI6MTY2NjQzMzY3MH0.iJHy2zoAF2vO5TFxB7mOnLmVwToe10jHadPIpQQukX4" } }).then(function(response) {
+    //     if (response.ok) {
+    //         return response.json().then(function(jsonData) {
+    //             console.log(jsonData);
+    //             temp_transport_params = [];
+    //             //добавление на форму выпадающих списков и инпутов для полученных параметров
+    //             jsonData.forEach(function(param) {
+    //                 if (param["values"].length == 0) {
+    //                     add_field("input", param["id"]);
+    //                 } else {
+    //                     add_field("select", param["id"]);
+    //                     param["values"].forEach(function(enum_value) {
+    //                         let newOption = new Option(enum_value["name"]);
+    //                         newOption.setAttribute("id", enum_value["id"]);
+    //                         $(`[value=${enum_value["paramId"]}]`).append(newOption);
+    //                     });
+    //                 }
+    //
+    //             });
+    //
+    //         });
+    //     } else {
+    //         console.log('Network request for trasportParams.json failed with response ' + response.status + ': ' + response.statusText);
+    //     }
+    // });
+
 
 }
+$("#login").on("click", getTokenData(document.getElementById('email').value, document.getElementById('password').value));
 
 
 // 
