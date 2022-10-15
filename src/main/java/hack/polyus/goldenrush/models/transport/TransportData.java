@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -20,6 +22,11 @@ public class TransportData {
     Long id;
     @ManyToOne
     TransportType transportType;
+    //Map<Long/*TransportParam*/, Long/*TransportParamValue*/> values;
+
+    //values
     @OneToMany
-    Map<TransportParam, TransportParamValue> values;
+    List<TransportParam> params = new ArrayList<>();
+    @OneToMany
+    List<TransportParamValue> param_values = new ArrayList<>();
 }
