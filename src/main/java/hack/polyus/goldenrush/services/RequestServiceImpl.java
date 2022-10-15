@@ -47,4 +47,9 @@ public class RequestServiceImpl implements RequestService {
     public void confirmEnd(Long id, LocalDateTime endTime) {
 
     }
+
+    @Override
+    public List<Request> getRequestsForPeriod(LocalDateTime start, LocalDateTime finish) {
+        return requestRepo.getScheduleForPeriod(start, finish);
+    }
 }

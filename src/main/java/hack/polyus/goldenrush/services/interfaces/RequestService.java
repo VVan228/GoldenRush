@@ -21,4 +21,6 @@ public interface RequestService {
 
     void confirmEnd(Long id, LocalDateTime endTime);
 
+    List<Request> getRequestsForPeriod(LocalDateTime start, LocalDateTime finish);
+
 }
