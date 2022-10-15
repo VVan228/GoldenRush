@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +15,7 @@ import javax.persistence.ManyToOne;
 public class TransportParam {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne
     TransportType typeId;

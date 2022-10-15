@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,9 +19,10 @@ import java.util.ArrayList;
 public class TimeLine {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @OneToOne
     Transport transport;
     @OneToMany(fetch = FetchType.LAZY)
-    ArrayList<Request> shedule;
+    List<Request> shedule = new ArrayList<>();;
 }

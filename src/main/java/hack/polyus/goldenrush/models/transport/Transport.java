@@ -7,14 +7,16 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Transport {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
     String number;
     String model;
     @ManyToOne

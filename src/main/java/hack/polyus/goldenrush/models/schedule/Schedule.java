@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,8 +18,9 @@ import java.util.Date;
 public class Schedule {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Date date;
     @OneToMany(fetch = FetchType.LAZY)
-    ArrayList<TimeLine> timeLines;
+    List<TimeLine> timeLines  = new ArrayList<>();;
 }
