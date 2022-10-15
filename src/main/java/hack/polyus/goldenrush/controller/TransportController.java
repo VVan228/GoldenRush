@@ -1,11 +1,14 @@
 package hack.polyus.goldenrush.controller;
 
-import hack.polyus.goldenrush.models.transport.Coordinate;
+import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.services.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -18,15 +21,15 @@ public class TransportController {
         this.transportService = transportService;
     }
 
-    @ResponseBody
-    @RequestMapping(
-            value = "/transport/coords/set/{number}",
-            method = RequestMethod.POST,
-            consumes = "application/json"
-    )
-    void setTransportCoords(@RequestParam Coordinate coords, @PathVariable String number) {
-        transportService.setCoordinates(coords, number);
-    }
+    //@ResponseBody
+    //@RequestMapping(
+    //        value = "/transport/coords/set/{number}",
+    //        method = RequestMethod.POST,
+    //        consumes = "application/json"
+    //)
+    //void setTransportCoords(@RequestParam Coordinate coords, @PathVariable String number) {
+    //    transportService.setCoordinates(coords, number);
+    //}
 
 
     @ResponseBody
@@ -39,14 +42,35 @@ public class TransportController {
         transportService.getCoordinates(number);
     }
 
+    //@ResponseBody
+    //@RequestMapping(
+    //        value = "/transport/driver/set/{number}",
+    //        method = RequestMethod.POST,
+    //        consumes = "application/json"
+    //)
+    //void setTransportDriver(@RequestParam User driver, @PathVariable String number) {
+    //    transportService.setDriver(driver, number);
+    //}
+
+
     @ResponseBody
     @RequestMapping(
-            value = "/transport/driver/set/{number}",
-            method = RequestMethod.POST,
-            consumes = "application/json"
+            value = "/transport/param/getParams/{typeId}",
+            method = RequestMethod.GET,
+            produces = "application/json"
     )
-    void setTransportDriver(@RequestParam User driver, @PathVariable String number) {
-        transportService.setDriver(driver, number);
+    List<TransportParamElement> getParams(@PathVariable Long typeId) {
+        return transportService.getParams(typeId);
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = "/transport/type/getTypes",
+            method = RequestMethod.GET,
+            produces = "application/json"
+    )
+    List<TransportType> getTypes() {
+        return transportService.getTypes();
     }
 
 

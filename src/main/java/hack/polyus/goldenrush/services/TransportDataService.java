@@ -3,6 +3,7 @@ package hack.polyus.goldenrush.services;
 import hack.polyus.goldenrush.models.transport.TransportParam;
 import hack.polyus.goldenrush.models.transport.TransportParamValueEnum;
 import hack.polyus.goldenrush.models.transport.TransportType;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

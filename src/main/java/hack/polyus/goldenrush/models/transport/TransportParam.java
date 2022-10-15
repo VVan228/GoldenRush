@@ -17,8 +17,7 @@ public class TransportParam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @ManyToOne
-    TransportType typeId;
+    Long typeId;
     String name;
     boolean isEnum;
 
