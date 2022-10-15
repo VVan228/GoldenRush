@@ -3,6 +3,7 @@ package hack.polyus.goldenrush.controller;
 import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.services.TransportService;
+import hack.polyus.goldenrush.services.interfaces.MessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.Map;
 public class TransportController {
 
     TransportService transportService;
+    MessagingService messagingService;
 
     @Autowired
-    public TransportController(TransportService transportService) {
+    public TransportController(TransportService transportService, MessagingService messagingService) {
         this.transportService = transportService;
+        this.messagingService = messagingService;
     }
 
     //@ResponseBody
@@ -60,6 +63,10 @@ public class TransportController {
             produces = "application/json"
     )
     List<TransportParamElement> getParams(@PathVariable Long typeId) {
+        Coordinate coordinate = new Coordinate();
+        coordinate.setLat(11);
+        coordinate.setLon(12);
+        messagingService.sendLocationNotification(0L, coordinate);
         return transportService.getParams(typeId);
     }
 

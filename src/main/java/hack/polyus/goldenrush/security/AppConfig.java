@@ -1,5 +1,7 @@
 package hack.polyus.goldenrush.security;
 
+import hack.polyus.goldenrush.services.MessagingServiceImpl;
+import hack.polyus.goldenrush.services.interfaces.MessagingService;
 import hack.polyus.goldenrush.services.interfaces.ScheduleGenerator;
 import hack.polyus.goldenrush.services.ScheduleGeneratorImpl;
 import hack.polyus.goldenrush.services.interfaces.TransportDataService;
@@ -26,6 +28,10 @@ public class AppConfig  {
 
     @Bean
     public ScheduleGenerator scheduleGenerator(){return new ScheduleGeneratorImpl();
+    }
+
+    @Bean
+    public MessagingService messagingService(){return new MessagingServiceImpl();
     }
 
 
