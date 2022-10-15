@@ -20,6 +20,5 @@ public class Schedule {
     Long id;
     Date date;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "time_line_id")
     ArrayList<TimeLine> timeLines;
 }
