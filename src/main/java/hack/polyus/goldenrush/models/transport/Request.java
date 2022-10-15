@@ -27,4 +27,7 @@ public class Request {
     Date date;
     @ManyToOne
     TransportData transportData;
+
+    double lat;
+    double lon;
 }

@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class ScheduleGeneratorImpl implements ScheduleGenerator{
 
     @Value("${base.point.lon}")
-    private double base_lon;
+    private double base_lon; //x1
     @Value("${base.point.lat}")
-    private double base_lat;
+    private double base_lat; //y1
 
     Map<String, List<Request>> typesTransportReq;
 
@@ -121,9 +121,14 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
 
         double minState = 86401;
         Request needReq = null;
+        double x1, y1;
+        x1 = this.base_lon;
+        y1 = this.base_lat;
         for (Request request: typesTransportReq.get(key)) {
 
-            long ds = timeDistanceBetween(0,1,1,0);
+            long ds = timeDistanceBetween(x1, y1, request.getLon(), request.getLat());
+            x1 = request.getLon();
+            y1 = request.getLat();
             LocalDateTime start_work = end_work.plusSeconds(ds);
             if (request.getStart().isAfter(start_work)) {
                 long sec = ChronoUnit.SECONDS.between(request.getStart(), start_work);
