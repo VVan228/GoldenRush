@@ -15,8 +15,11 @@ import java.util.List;
 @Controller
 public class RequestController {
 
-    @Autowired
     private RequestService requestService;
+    @Autowired
+    RequestController(RequestService rS) {
+        this.requestService = rS;
+    }
 
     @ResponseBody
     @RequestMapping(
