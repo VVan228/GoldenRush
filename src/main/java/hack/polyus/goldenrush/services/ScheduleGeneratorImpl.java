@@ -3,6 +3,7 @@ package hack.polyus.goldenrush.services;
 import hack.polyus.goldenrush.models.schedule.Schedule;
 import hack.polyus.goldenrush.models.transport.Request;
 import hack.polyus.goldenrush.models.transport.Transport;
+import hack.polyus.goldenrush.services.interfaces.ScheduleGenerator;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Instant;

@@ -1,16 +1,13 @@
 package hack.polyus.goldenrush.controller;
 
 import hack.polyus.goldenrush.models.transport.Request;
-import hack.polyus.goldenrush.services.RequestService;
+import hack.polyus.goldenrush.services.interfaces.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 public class RequestController {

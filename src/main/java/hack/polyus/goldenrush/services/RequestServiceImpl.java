@@ -2,13 +2,14 @@ package hack.polyus.goldenrush.services;
 
 import hack.polyus.goldenrush.models.transport.Request;
 import hack.polyus.goldenrush.repo.RequestRepo;
+import hack.polyus.goldenrush.services.interfaces.RequestService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class RequestServiceImpl implements RequestService{
+public class RequestServiceImpl implements RequestService {
 
     RequestRepo requestRepo;
 
@@ -39,15 +40,11 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public void confirmStart(Long id, LocalDateTime startTime) {
-        Request newRequest = requestRepo.getRequestById(id);
-        newRequest.setStart(startTime);
-        requestRepo.save(newRequest);
+
     }
 
     @Override
     public void confirmEnd(Long id, LocalDateTime endTime) {
-        Request newRequest = requestRepo.getRequestById(id);
-        newRequest.setStart(endTime);
-        requestRepo.save(newRequest);
+
     }
 }

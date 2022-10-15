@@ -3,13 +3,13 @@ package hack.polyus.goldenrush.services;
 import hack.polyus.goldenrush.models.transport.TransportParam;
 import hack.polyus.goldenrush.models.transport.TransportParamValueEnum;
 import hack.polyus.goldenrush.models.transport.TransportType;
-import org.springframework.stereotype.Service;
+import hack.polyus.goldenrush.services.interfaces.TransportDataService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TransportDataServiceImpl implements TransportDataService{
+public class TransportDataServiceImpl implements TransportDataService {
 
     List<TransportParam> params = new ArrayList<>();
     List<TransportType> types = new ArrayList<>();

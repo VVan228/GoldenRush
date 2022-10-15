@@ -1,4 +1,4 @@
-package hack.polyus.goldenrush.services;
+package hack.polyus.goldenrush.services.interfaces;
 
 import hack.polyus.goldenrush.models.schedule.Schedule;
 
