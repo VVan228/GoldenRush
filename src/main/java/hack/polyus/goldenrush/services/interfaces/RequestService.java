@@ -2,12 +2,15 @@ package hack.polyus.goldenrush.services.interfaces;
 
 import hack.polyus.goldenrush.models.transport.Request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface RequestService {
 
-    List<Request> getAllRequests();
+    List<Request> getRequests(LocalDate date);
+    List<Request> getRequestsClient(LocalDate date, Long id);
 
     void insert(Request request);
 

@@ -2,33 +2,48 @@ package hack.polyus.goldenrush.services;
 
 import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.repo.TransportRepo;
+import hack.polyus.goldenrush.services.interfaces.MessagingService;
 import hack.polyus.goldenrush.services.interfaces.TransportDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransportService {
 
     TransportRepo transportRepo;
     TransportDataService dataService;
+    MessagingService messagingService;
+
+    private boolean getNightShift(){
+        LocalTime time = LocalTime.now();
+        return time.isAfter(LocalTime.of(20,0));
+    }
 
     @Autowired
-    public TransportService(TransportRepo transportRepo, TransportDataService dataService) {
+    public TransportService(TransportRepo transportRepo, TransportDataService dataService, MessagingService messagingService) {
         this.transportRepo = transportRepo;
         this.dataService = dataService;
+        this.messagingService = messagingService;
     }
 
-    //public void setCoordinates(Coordinate coords, String transportNumber) {
-    //    transportRepo.setCoords(coords, transportNumber);
-    //}
 
-    public Coordinate getCoordinates(String transportNumber) {
-
-        return transportRepo.getCoords(transportNumber);
+    public void setCoordinates(Coordinate coords, Long transportId) {
+        Optional<Transport> t = transportRepo.findById(transportId);
+        System.out.println(t.isPresent());
+        if(t.isPresent()){
+            Transport transport = t.get();
+            transport.setCoord(coords);
+            transportRepo.save(transport);
+            messagingService.sendLocationChangedNotification(transportId, coords);
+        }
     }
+
 
     //public void setDriver(User driver, String transportNumber) {
     //    transportRepo.setDriver(driver, transportNumber);
@@ -52,15 +67,22 @@ public class TransportService {
 
 
     public void setStatusAcceptOrder(Long transportId) {
+        messagingService.sendStatusChangedNotification(transportId, DriverStatus.ACCEPT_THE_ORDER);
         transportRepo.setTransportStatus(transportId, DriverStatus.ACCEPT_THE_ORDER);
     }
 
     public void setStatusInProgress(Long transportId) {
+        messagingService.sendStatusChangedNotification(transportId, DriverStatus.IN_PROGRESS);
         transportRepo.setTransportStatus(transportId, DriverStatus.IN_PROGRESS);
     }
 
     public void setStatusFree(Long transportId) {
+        messagingService.sendStatusChangedNotification(transportId, DriverStatus.FREE);
         transportRepo.setTransportStatus(transportId, DriverStatus.FREE);
+    }
+
+    public List<Transport> getTransportClient(LocalDate date, Long id){
+        return transportRepo.getClientTransport(date, getNightShift(), id);
     }
 
 }

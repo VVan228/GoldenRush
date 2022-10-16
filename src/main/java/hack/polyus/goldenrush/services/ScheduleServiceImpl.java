@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,8 +38,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule getSchedule(Date date) {
-        return scheduleRepo.getScheduleByDate(date);
+    public Schedule getSchedule(LocalDate date) {
+        LocalTime time = LocalTime.now();
+        boolean nightShift = time.isAfter(LocalTime.of(20,0));
+        return scheduleRepo.getScheduleByDateAndNightShift(date, nightShift);
     }
 
     @Override
@@ -49,24 +50,52 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleRepo.save(schedule);
     }
 
+    @Override
+    public List<Request> getRequestsDriver(LocalDate date, Long id) {
+        List<TimeLine> timeLines = getSchedule(LocalDate.now()).getTimeLines();
+        List<Request> res = new ArrayList<>();
+        for(TimeLine t: timeLines){
+            if(t.getTransport().getUser().getId().equals(id)){
+                res = t.getShedule();
+            }
+        }
+        return res;
+    }
+
     @Scheduled(
-            cron = "0 0 08 00 * ?",
+            cron = "0 10 08 * * *",
             fixedDelay = 43200000
     )
     public void generateSchedule(){
-        LocalDateTime localDateTimeStart = LocalDateTime.now();
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        time = time.plusHours(12);
-        LocalDateTime localDateTimeFinish = LocalDateTime.of(date,time);
+        System.out.println("its time!!");
+        LocalDate dateNow = LocalDate.now();
+        LocalTime timeNow = LocalTime.now();
+
+        boolean nightShift = timeNow.isAfter(LocalTime.of(14,0));
+
+        LocalDateTime localDateTimeStart = LocalDateTime.of(dateNow,
+                nightShift?
+                        LocalTime.of(20,0)
+                        :
+                        LocalTime.of(8,0)
+        );
+        LocalDateTime localDateTimeFinish = LocalDateTime.of(
+                nightShift?dateNow.plusDays(1):dateNow,
+                nightShift?
+                        LocalTime.of(8,0)
+                        :
+                        LocalTime.of(20,0)
+        );
 
 
         List<Transport> transport = erpAdapter.getTransportForShift();
-        List<Request> requests = requestService.getRequestsForPeriod(localDateTimeStart, localDateTimeFinish);
+        List<Request> requests = requestService.getRequests(dateNow);
         Schedule schedule = scheduleGenerator.generate(transport, requests);
+        schedule.setDate(dateNow);
+        schedule.setNightShift(nightShift);
         scheduleRepo.save(schedule);
         for(TimeLine timeLine: schedule.getTimeLines()){
-            messagingService.sendLocationNotification(timeLine.getTransport().getId(), timeLine.getTransport().getCoord());
+            messagingService.sendLocationChangedNotification(timeLine.getTransport().getId(), timeLine.getTransport().getCoord());
         }
     }
 }

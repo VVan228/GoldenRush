@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //.antMatchers("/home").permitAll()
-                .antMatchers(HttpMethod.POST,"/transport/**").hasAnyAuthority(Permission.ADMIN.getPermission())
+                .antMatchers(HttpMethod.POST,"/api/transport/**").hasAnyAuthority(Permission.ADMIN.getPermission())
+                .antMatchers(HttpMethod.POST,"/api/request/**").hasAnyAuthority(Permission.ADMIN.getPermission())
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .apply(jwtConfigurer);

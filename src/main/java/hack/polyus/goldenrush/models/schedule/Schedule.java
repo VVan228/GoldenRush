@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,8 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Date date;
+    LocalDate date;
+    boolean nightShift;
     @OneToMany(fetch = FetchType.LAZY)
     List<TimeLine> timeLines  = new ArrayList<>();;
 }

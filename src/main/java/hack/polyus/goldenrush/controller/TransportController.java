@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,26 +32,26 @@ public class TransportController {
         this.erpAdapter = erpAdapter;
     }
 
-    //@ResponseBody
-    //@RequestMapping(
-    //        value = "/transport/coords/set/{number}",
-    //        method = RequestMethod.POST,
-    //        consumes = "application/json"
-    //)
-    //void setTransportCoords(@RequestParam Coordinate coords, @PathVariable String number) {
-    //    transportService.setCoordinates(coords, number);
-    //}
-
-
     @ResponseBody
     @RequestMapping(
-            value = "/api/transport/coords/get/{number}",
-            method = RequestMethod.GET,
-            produces = "application/json"
+            value = "/api/transport/coords/set/{transportId}",
+            method = RequestMethod.POST,
+            consumes = "application/json"
     )
-    void getTransportCoords(@PathVariable String number) {
-        transportService.getCoordinates(number);
+    void setTransportCoords(@RequestBody Coordinate coords, @PathVariable Long transportId) {
+        transportService.setCoordinates(coords, transportId);
     }
+
+
+    //@ResponseBody
+    //@RequestMapping(
+    //        value = "/api/transport/coords/get/{number}",
+    //        method = RequestMethod.GET,
+    //        produces = "application/json"
+    //)
+    //void getTransportCoords(@PathVariable int number) {
+    //    transportService.getCoordinates(number);
+    //}
 
     //@ResponseBody
     //@RequestMapping(
@@ -98,7 +101,14 @@ public class TransportController {
             produces = "application/json"
     )
     List<TransportParamElement> getParams(@PathVariable Long typeId) {
-        System.out.println(Arrays.toString(erpAdapter.getTransportForShift().toArray()));
+        /*Request r = new Request();
+        r.setDate(Date.valueOf(LocalDate.now()));
+        r.setStart(LocalDateTime.now());
+        r.setEnd(LocalDateTime.now().plusHours(1));
+        r.setClientId(2L);
+        return r;*/
+        //messagingService.sendStatusChangedNotification(0L,DriverStatus.ACCEPT_THE_ORDER);
+        transportService.getTransportClient(LocalDate.now(), 0L);
         return transportService.getParams(typeId);
     }
 
