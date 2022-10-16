@@ -23,6 +23,10 @@ public class UserService {
         return userRepo.getByEmail(email);
     }
 
+    public User getById(Long id){
+        return userRepo.getById(id);
+    }
+
     @Transactional
     public void replaceRefreshToken(Long id, String refreshToken){
         userRepo.replaceRefreshToken(id, refreshToken);

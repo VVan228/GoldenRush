@@ -85,4 +85,11 @@ public class TransportService {
         return transportRepo.getClientTransport(date, getNightShift(), id);
     }
 
+    public TransportParam getParam(Long paramId){
+        return dataService.getParam(paramId);
+    }
+
+    public TransportType getType(Long typeId){
+        return dataService.getType(typeId);
+    }
 }

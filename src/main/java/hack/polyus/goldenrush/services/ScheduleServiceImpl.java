@@ -62,10 +62,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         return res;
     }
 
-    @Scheduled(
+    /*@Scheduled(
             cron = "0 10 08 * * *",
             fixedDelay = 43200000
-    )
+    )*/
     public void generateSchedule(){
         System.out.println("its time!!");
         LocalDate dateNow = LocalDate.now();

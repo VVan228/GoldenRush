@@ -15,4 +15,6 @@ public interface ScheduleService {
     void updateSchedule(Long id);
 
     List<Request> getRequestsDriver(LocalDate date, Long id);
+
+    void generateSchedule();
 }

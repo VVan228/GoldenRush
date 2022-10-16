@@ -41,4 +41,15 @@ public class ScheduleController {
         return scheduleService.getSchedule(LocalDate.now());
     }
 
+
+    @ResponseBody
+    @RequestMapping(
+            value = "/api/secretCommand",
+            method = RequestMethod.POST,
+            consumes = "application/json"
+    )
+    void generateSchedule() {
+        scheduleService.generateSchedule();
+    }
+
 }

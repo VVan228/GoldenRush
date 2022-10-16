@@ -3,6 +3,8 @@ package hack.polyus.goldenrush.controller;
 import hack.polyus.goldenrush.adapters.ErpAdapter;
 import hack.polyus.goldenrush.adapters.ErpAdapterImpl;
 import hack.polyus.goldenrush.models.transport.*;
+import hack.polyus.goldenrush.models.user.Role;
+import hack.polyus.goldenrush.models.user.SecurityUser;
 import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.services.TransportService;
 import hack.polyus.goldenrush.services.interfaces.MessagingService;
@@ -91,6 +93,21 @@ public class TransportController {
     )
     void setStatusFree(@PathVariable Long transportId) {
         transportService.setStatusFree(transportId);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(
+            value = "/api/transport/get/forClient",
+            method = RequestMethod.GET,
+            produces = "application/json"
+    )
+    List<Transport> getForClient() {
+        SecurityUser securityUser = SecurityUser.getCurrent();
+        if(securityUser.getUser().getRole()!= Role.CLIENT){
+            return null;
+        }
+        return transportService.getTransportClient(LocalDate.now(), securityUser.getUser().getId());
     }
 
 
