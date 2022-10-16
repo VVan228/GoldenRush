@@ -37,4 +37,7 @@ public class Request {
 
     @ManyToOne
     TransportData transportData;
+
+    double lat;
+    double lon;
 }
