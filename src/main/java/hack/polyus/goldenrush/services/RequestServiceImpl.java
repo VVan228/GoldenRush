@@ -27,12 +27,14 @@ public class RequestServiceImpl implements RequestService {
 
     private boolean getNightShift(){
         LocalTime time = LocalTime.now();
-        return time.isAfter(LocalTime.of(20,0));
+        boolean nightShift = time.isAfter(LocalTime.of(20,0));
+        System.out.println(nightShift?"night shift":"not night shift");
+        return nightShift;
     }
 
     @Override
     public List<Request> getRequests(LocalDate date) {
-        return requestRepo.getRequestsByShift(date, getNightShift());
+        return requestRepo.getRequestsByShift(date,getNightShift());
     }
 
     @Override

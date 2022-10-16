@@ -45,8 +45,7 @@ public class ScheduleController {
     @ResponseBody
     @RequestMapping(
             value = "/api/secretCommand",
-            method = RequestMethod.POST,
-            consumes = "application/json"
+            method = RequestMethod.GET
     )
     void generateSchedule() {
         scheduleService.generateSchedule();

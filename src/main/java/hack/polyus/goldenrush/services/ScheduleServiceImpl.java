@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -71,25 +72,13 @@ public class ScheduleServiceImpl implements ScheduleService {
         LocalDate dateNow = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
 
-        boolean nightShift = timeNow.isAfter(LocalTime.of(14,0));
-
-        LocalDateTime localDateTimeStart = LocalDateTime.of(dateNow,
-                nightShift?
-                        LocalTime.of(20,0)
-                        :
-                        LocalTime.of(8,0)
-        );
-        LocalDateTime localDateTimeFinish = LocalDateTime.of(
-                nightShift?dateNow.plusDays(1):dateNow,
-                nightShift?
-                        LocalTime.of(8,0)
-                        :
-                        LocalTime.of(20,0)
-        );
+        boolean nightShift = timeNow.isAfter(LocalTime.of(20,0));
 
 
         List<Transport> transport = erpAdapter.getTransportForShift();
         List<Request> requests = requestService.getRequests(dateNow);
+        System.out.println(dateNow);
+        System.out.println(Arrays.toString(requests.toArray()));
         Schedule schedule = scheduleGenerator.generate(transport, requests);
         schedule.setDate(dateNow);
         schedule.setNightShift(nightShift);
