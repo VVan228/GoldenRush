@@ -1,14 +1,12 @@
-package hack.polyus.goldenrush.models.transport;
+package hack.polyus.goldenrush.models.schedule;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-public class TransportParse {
+public class RequestParse {
     Long transport_data_id;
     double lat;
     double lon;

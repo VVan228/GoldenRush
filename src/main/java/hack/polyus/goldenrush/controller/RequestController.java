@@ -1,6 +1,7 @@
 package hack.polyus.goldenrush.controller;
 
 import hack.polyus.goldenrush.models.schedule.Request;
+import hack.polyus.goldenrush.models.schedule.RequestParse;
 import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.models.user.SecurityUser;
 import hack.polyus.goldenrush.repo.*;
@@ -43,7 +44,7 @@ public class RequestController {
             method = RequestMethod.POST
     )
     public void saveRequest(
-            @RequestBody /*Map<String, Object> res*/ TransportParse transportParse
+            @RequestBody /*Map<String, Object> res*/ RequestParse transportParse
             ) {
         //Gson gson = new Gson();
         //System.out.println(gson.toJson(res));
