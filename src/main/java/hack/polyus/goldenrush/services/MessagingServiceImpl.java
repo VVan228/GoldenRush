@@ -1,15 +1,11 @@
 package hack.polyus.goldenrush.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import hack.polyus.goldenrush.models.messaging.Params;
 import hack.polyus.goldenrush.models.messaging.PublishNotification;
 import hack.polyus.goldenrush.models.transport.Coordinate;
 import hack.polyus.goldenrush.models.transport.DriverStatus;
-import hack.polyus.goldenrush.models.transport.Request;
 import hack.polyus.goldenrush.services.interfaces.MessagingService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package hack.polyus.goldenrush.controller;
 
 import hack.polyus.goldenrush.models.schedule.Schedule;
-import hack.polyus.goldenrush.models.transport.Request;
+import hack.polyus.goldenrush.models.schedule.Request;
 import hack.polyus.goldenrush.services.interfaces.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

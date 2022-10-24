@@ -1,22 +1,17 @@
 package hack.polyus.goldenrush.controller;
 
-import com.google.gson.Gson;
+import hack.polyus.goldenrush.models.schedule.Request;
 import hack.polyus.goldenrush.models.transport.*;
 import hack.polyus.goldenrush.models.user.SecurityUser;
-import hack.polyus.goldenrush.models.user.User;
 import hack.polyus.goldenrush.repo.*;
 import hack.polyus.goldenrush.services.TransportService;
 import hack.polyus.goldenrush.services.UserService;
 import hack.polyus.goldenrush.services.interfaces.RequestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class RequestController {

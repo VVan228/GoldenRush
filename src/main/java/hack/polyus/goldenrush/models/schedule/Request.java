@@ -1,6 +1,7 @@
-package hack.polyus.goldenrush.models.transport;
+package hack.polyus.goldenrush.models.schedule;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import hack.polyus.goldenrush.models.transport.TransportData;
 import lombok.*;
 
 import javax.persistence.*;

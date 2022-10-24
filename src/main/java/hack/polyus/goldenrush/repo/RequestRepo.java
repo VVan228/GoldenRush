@@ -1,14 +1,12 @@
 package hack.polyus.goldenrush.repo;
 
-import hack.polyus.goldenrush.models.schedule.Schedule;
-import hack.polyus.goldenrush.models.transport.Request;
+import hack.polyus.goldenrush.models.schedule.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface RequestRepo extends JpaRepository<Request, Long> {

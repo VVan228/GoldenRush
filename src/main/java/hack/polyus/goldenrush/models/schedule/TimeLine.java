@@ -1,6 +1,5 @@
 package hack.polyus.goldenrush.models.schedule;
 
-import hack.polyus.goldenrush.models.transport.Request;
 import hack.polyus.goldenrush.models.transport.Transport;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

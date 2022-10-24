@@ -2,17 +2,14 @@ package hack.polyus.goldenrush.services;
 
 import hack.polyus.goldenrush.models.schedule.Schedule;
 import hack.polyus.goldenrush.models.schedule.TimeLine;
-import hack.polyus.goldenrush.models.transport.Request;
+import hack.polyus.goldenrush.models.schedule.Request;
 import hack.polyus.goldenrush.models.transport.Transport;
 import hack.polyus.goldenrush.services.interfaces.ScheduleGenerator;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class ScheduleGeneratorImpl implements ScheduleGenerator {

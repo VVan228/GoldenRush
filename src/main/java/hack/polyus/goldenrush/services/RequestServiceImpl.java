@@ -1,18 +1,14 @@
 package hack.polyus.goldenrush.services;
 
-import hack.polyus.goldenrush.models.schedule.TimeLine;
-import hack.polyus.goldenrush.models.transport.Request;
+import hack.polyus.goldenrush.models.schedule.Request;
 import hack.polyus.goldenrush.repo.RequestRepo;
 import hack.polyus.goldenrush.services.interfaces.RequestService;
-import hack.polyus.goldenrush.services.interfaces.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
